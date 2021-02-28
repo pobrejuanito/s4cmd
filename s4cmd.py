@@ -792,6 +792,7 @@ class S3Handler(object):
           target_url = S3URL(target)
           # deal with ./ or ../ here by normalizing the path.
           joined_path = os.path.normpath(os.path.join(target_url.path, os.path.relpath(f, source)))
+          joined_path = joined_path.replace('\\', '/')
           pool.upload(f, S3URL.combine('s3', target_url.bucket, joined_path))
       else:
         message('omitting directory "%s".' % source)
